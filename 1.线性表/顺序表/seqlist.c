@@ -25,19 +25,21 @@ void display(SeqList* s)
     
 }
 
-//查找元素（返回查找到的第一个位置）
-int search(SeqList* s, int elem)
+//查找第pos个位置的元素
+int search(SeqList* s, int pos)
 {
-    for (int i = 0; i < s->len; i++)
+    if (pos < 1 || pos > s->len)
     {
-        if(s->head[i] == elem)
-            return i+1;
+        printf("查找位置非法\n");
+        //假设元素均为正值
+        return -1;
     }
-    return -1;
+    return s->head[pos-1];
+    
 }
 
-//插入元素到指定位置 pos为插入到哪个位置(从1 开始)
-void insert(SeqList* s, int elem, int pos)
+//插入元素到第pos(从1开始)个位置
+void insert(SeqList* s, int pos, int elem)
 {
     //插入位置非法
     if (pos > s->len + 1 || pos < 1)
@@ -85,10 +87,15 @@ void del(SeqList* s, int pos)
 }
 
 
-//更新指定元素的值
-void update(SeqList* s, int elem,int new_elem)
+//更新指定位置的元素
+void update(SeqList* s, int pos,int NewElem)
 {
-    int pos = search(s,elem);
-    s->head[pos-1] = new_elem;
+    if (pos < 1 || pos > s->len)
+    {
+        printf("更新位置非法\n");
+        return;
+    }
+    
+    s->head[pos-1] = NewElem;
     
 }

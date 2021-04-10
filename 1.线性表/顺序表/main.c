@@ -7,7 +7,7 @@ int main()
 
     SeqList s;
     init(&s);
-    int n,elem,new_elem,pos;
+    int n,elem,NewElem,pos;
     int i=1;
     while(i)
     {
@@ -34,17 +34,17 @@ int main()
             break;
         
         case 4:
-            printf("\n需要更新的元素：");
-            scanf("%d",&elem);
+            printf("\n更新的位置：");
+            scanf("%d",&pos);
             printf("\n更新为:");
-            scanf("%d",&new_elem);
-            update(&s,elem,new_elem);
+            scanf("%d",&NewElem);
+            update(&s,pos,NewElem);
             break;
         
         case 5:
-            printf("\n需要查找的元素：");
-            scanf("%d",&elem);
-            search(&s,elem);
+            printf("\n查找的位置：");
+            scanf("%d",&pos);
+            search(&s,pos);
 
         default:
             break;
