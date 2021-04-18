@@ -1,10 +1,10 @@
 #include "LinkList.h"
 
 //链表初始化
-void init(link** p)
+void init(link** p_head)
 {
     link* temp = (link*)malloc(sizeof(link));
-    *p = temp;
+    *p_head = temp;
 
     for (int i = 1; i <= SIZE ; i++)
     {
@@ -19,9 +19,9 @@ void init(link** p)
 }
 
 //显示链表中的元素
-void display(link* p)
+void display(link* head)
 {
-    link* temp = p;
+    link* temp = head;
     temp = temp->next;
     while(temp)
     {
@@ -32,9 +32,9 @@ void display(link* p)
 }
 
 //向链表中插入元素
-void insert(link* p, int elem, int pos)
+void insert(link* head, int elem, int pos)
 {
-    link* temp = p; //头节点
+    link* temp = head; //头节点
 
     //找到插入位置的上一个节点
     for(int i = 1; i < pos; i++)
@@ -55,9 +55,9 @@ void insert(link* p, int elem, int pos)
 }
 
 //删除链表中的元素
-void del(link* p, int pos)
+void del(link* head, int pos)
 {
-    link* temp = p;//temp指向链表的头节点
+    link* temp = head;//temp指向链表的头节点
     
         
     //找到删除位置的前一个节点
@@ -77,9 +77,9 @@ void del(link* p, int pos)
 }
 
 //查找第pos个位置的元素值
-int search(link* p, int pos)
+int search(link* head, int pos)
 {
-    link* temp = p;
+    link* temp = head;
     
     for (int i = 1; i <= pos; i++)
     {
@@ -95,9 +95,9 @@ int search(link* p, int pos)
 }
 
 //更新链表第pos个位置的元素为NewElem
-void update(link* p, int pos, int NewElem)
+void update(link* head, int pos, int NewElem)
 {
-    link* temp = p;
+    link* temp = head;
 
     for (int i = 1; i <= pos; i++)
     {
@@ -112,4 +112,96 @@ void update(link* p, int pos, int NewElem)
 
     temp->elem = NewElem;
 
+}
+
+void iteration_reverse(link** p_head)
+{
+    if (*p_head == NULL || (*p_head)->next == NULL)
+    {
+        return;
+    }
+    
+    link* begin = NULL;
+    link* middle = (*p_head)->next;//指向首元节点
+    link* end = middle->next;
+
+    while (end)
+    {
+        middle->next = begin;
+        begin = middle;
+        middle = end;
+        end = end->next;
+    }
+    middle->next = begin;
+    (*p_head)->next = middle;//头节点指向反转前的最后一个节点
+}
+
+
+link* recursive_reverse(link* head)
+{
+    //只有一个节点或者找到最后一个节点就返回
+    if (head->next == NULL || head == NULL)
+    {
+        return head;
+    }
+
+    link* new_head = recursive_reverse(head->next);//始终指向最后一个节点
+
+    head->next->next = head;
+    head->next = NULL;
+
+    return new_head;
+}
+
+//带头节点的链表head从指向首元节点开始
+link* head_reverse(link* head)
+{
+    if (head == NULL || head->next == NULL)
+    {
+        return head;
+    }
+    
+    link* new_head = NULL;
+    link* temp = NULL;
+   
+    //带头节点的链表需要从首元节点开始
+    /*
+    * code ...
+    */
+
+    while(head)
+    {
+        temp = head;
+        head = head->next;
+        temp->next = new_head;
+
+        new_head = temp;
+    }
+
+    return new_head;
+}
+
+int LinkIntersect(link* head1, link* head2)
+{
+    //找到链表1的最后一个节点
+    while(head1->next)
+    {
+        head1 = head1->next;
+    }
+
+    //找到链表2的最后一个节点
+    while(head2->next)
+    {
+        head2 = head2->next;
+    }
+
+    if (head1 == head2)
+    {
+        return 1;
+    }else
+    {
+        return 0;
+    }
+    
+    
 }
